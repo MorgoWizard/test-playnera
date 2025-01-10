@@ -20,7 +20,7 @@ public class Shelf : MonoBehaviour
 
     private void SortObjectsRendering()
     {
-        List<DraggableObject> objectsOnShelfSortedByX = _objectsOnShelf.OrderBy(obj => obj.transform.position.x).ToList();
+        List<DraggableObject> objectsOnShelfSortedByX = _objectsOnShelf.OrderByDescending(obj => obj.transform.position.x).ToList();
         int counter = 0;
         foreach (var objectOnShelf in objectsOnShelfSortedByX)
         {

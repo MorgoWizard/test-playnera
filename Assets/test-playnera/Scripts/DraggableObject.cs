@@ -1,11 +1,15 @@
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class DraggableObject : MonoBehaviour
 {
     [SerializeField] private ColliderChecker colliderChecker;
     [SerializeField] private Collider2D objectCollider;
+    
+    private Shelf _currentShelf;
     private bool _isDragging;
+    private Tween _currentTween;
     [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
     
     private PlayerControls _playerControls;
@@ -50,6 +54,11 @@ public class DraggableObject : MonoBehaviour
     public void StartDragging()
     {
         _isDragging = true;
+
+        if(_currentTween != null && !_currentTween.IsComplete()) _currentTween.Kill(true);
+        
+        if (_currentShelf != null)
+            _currentShelf.RemoveObjectFromShelf(this);
     }
     
     public void StopDragging()
@@ -57,8 +66,14 @@ public class DraggableObject : MonoBehaviour
         _isDragging = false;
 
         Collider2D upperCollider2D = colliderChecker.GetCollidersBelow().OrderByDescending(obj => obj.bounds.max.y).FirstOrDefault(colliderBelow => !(colliderBelow.bounds.size.x < objectCollider.bounds.size.x));
-
+        
         if (upperCollider2D != null)
-            transform.position = new Vector3(transform.position.x, upperCollider2D.bounds.max.y, 0);
+        {
+            _currentShelf = upperCollider2D.gameObject.GetComponent<Shelf>();
+            _currentShelf.AddObjectToShelf(this);
+            Vector3 finalPosition = new Vector3(transform.position.x, upperCollider2D.bounds.max.y, 0);
+            _currentTween = transform.DOMove(finalPosition, 1)
+                .SetEase(Ease.OutBounce);
+        }
     }
 }
