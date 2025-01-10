@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class Dragger : MonoBehaviour
 {
-    //[SerializeField] private Collider2D dragCollider;
     [SerializeField] private ContactFilter2D contactFilter;
 
     private Camera _mainCamera;
@@ -31,7 +30,7 @@ public class Dragger : MonoBehaviour
     {
         if (_draggableObject)
         {
-            _draggableObject.SetIsDragging(false);
+            _draggableObject.StopDragging();
             _draggableObject = null;
         }
     }
@@ -49,7 +48,7 @@ public class Dragger : MonoBehaviour
         
         if(_draggableObject == null) return;
         
-        _draggableObject.SetIsDragging(true);
+        _draggableObject.StartDragging();
     }
 
     private void OnDisable()

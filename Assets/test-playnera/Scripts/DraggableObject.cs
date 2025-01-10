@@ -1,8 +1,12 @@
+using System.Linq;
 using UnityEngine;
 
 public class DraggableObject : MonoBehaviour
 {
+    [SerializeField] private ColliderChecker colliderChecker;
+    [SerializeField] private Collider2D objectCollider;
     private bool _isDragging;
+    [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
     
     private PlayerControls _playerControls;
     private Camera _mainCamera;
@@ -13,7 +17,10 @@ public class DraggableObject : MonoBehaviour
 
     private void Awake()
     {
-        _mainCamera = Camera.main;
+        if(_mainCamera ==null) _mainCamera = Camera.main;
+        if(SpriteRenderer == null) SpriteRenderer = GetComponent<SpriteRenderer>();
+        if(colliderChecker == null) colliderChecker = GetComponent<ColliderChecker>();
+        if(objectCollider == null) objectCollider = GetComponent<Collider2D>();
         _playerControls = new PlayerControls();
     }
 
@@ -22,9 +29,9 @@ public class DraggableObject : MonoBehaviour
         _playerControls.Enable();
     }
 
-    public void SetIsDragging(bool state)
+    private void OnDisable()
     {
-        _isDragging = state;
+        _playerControls.Disable();
     }
 
     private void Update()
@@ -38,5 +45,20 @@ public class DraggableObject : MonoBehaviour
         _targetPosition = worldPosition;
         
         transform.position = Vector3.Lerp(transform.position, _targetPosition, followSpeed * Time.deltaTime);
+    }
+
+    public void StartDragging()
+    {
+        _isDragging = true;
+    }
+    
+    public void StopDragging()
+    {
+        _isDragging = false;
+
+        Collider2D upperCollider2D = colliderChecker.GetCollidersBelow().OrderByDescending(obj => obj.bounds.max.y).FirstOrDefault(colliderBelow => !(colliderBelow.bounds.size.x < objectCollider.bounds.size.x));
+
+        if (upperCollider2D != null)
+            transform.position = new Vector3(transform.position.x, upperCollider2D.bounds.max.y, 0);
     }
 }
