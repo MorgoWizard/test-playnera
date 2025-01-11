@@ -44,6 +44,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PointerDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""03c486b2-0fb3-4d78-9beb-470a9291a048"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""PointerPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2ee5783-3358-45b2-94ca-8027e4cc1fd8"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PointerDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_PointerPress = m_Gameplay.FindAction("PointerPress", throwIfNotFound: true);
         m_Gameplay_PointerPosition = m_Gameplay.FindAction("PointerPosition", throwIfNotFound: true);
+        m_Gameplay_PointerDelta = m_Gameplay.FindAction("PointerDelta", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -146,12 +167,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_PointerPress;
     private readonly InputAction m_Gameplay_PointerPosition;
+    private readonly InputAction m_Gameplay_PointerDelta;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
         public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @PointerPress => m_Wrapper.m_Gameplay_PointerPress;
         public InputAction @PointerPosition => m_Wrapper.m_Gameplay_PointerPosition;
+        public InputAction @PointerDelta => m_Wrapper.m_Gameplay_PointerDelta;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -167,6 +190,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PointerPosition.started += instance.OnPointerPosition;
             @PointerPosition.performed += instance.OnPointerPosition;
             @PointerPosition.canceled += instance.OnPointerPosition;
+            @PointerDelta.started += instance.OnPointerDelta;
+            @PointerDelta.performed += instance.OnPointerDelta;
+            @PointerDelta.canceled += instance.OnPointerDelta;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -177,6 +203,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PointerPosition.started -= instance.OnPointerPosition;
             @PointerPosition.performed -= instance.OnPointerPosition;
             @PointerPosition.canceled -= instance.OnPointerPosition;
+            @PointerDelta.started -= instance.OnPointerDelta;
+            @PointerDelta.performed -= instance.OnPointerDelta;
+            @PointerDelta.canceled -= instance.OnPointerDelta;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -198,5 +227,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnPointerPress(InputAction.CallbackContext context);
         void OnPointerPosition(InputAction.CallbackContext context);
+        void OnPointerDelta(InputAction.CallbackContext context);
     }
 }

@@ -8,7 +8,7 @@ public class DraggableObject : MonoBehaviour
     [SerializeField] private Collider2D objectCollider;
     
     private Shelf _currentShelf;
-    private bool _isDragging;
+    private bool _isDragged;
     private Tween _currentTween;
     [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
     
@@ -40,7 +40,7 @@ public class DraggableObject : MonoBehaviour
 
     private void Update()
     {
-        if (!_isDragging) return;
+        if (!_isDragged) return;
         
         Vector3 worldPosition =
             _mainCamera.ScreenToWorldPoint(_playerControls.Gameplay.PointerPosition.ReadValue<Vector2>());
@@ -53,8 +53,10 @@ public class DraggableObject : MonoBehaviour
 
     public void StartDragging()
     {
-        _isDragging = true;
+        _isDragged = true;
 
+        SpriteRenderer.sortingOrder = 50;
+        
         if(_currentTween != null && !_currentTween.IsComplete()) _currentTween.Kill(true);
         
         if (_currentShelf != null)
@@ -63,7 +65,7 @@ public class DraggableObject : MonoBehaviour
     
     public void StopDragging()
     {
-        _isDragging = false;
+        _isDragged = false;
 
         Collider2D upperCollider2D = colliderChecker.GetCollidersBelow().OrderByDescending(obj => obj.bounds.max.y).FirstOrDefault(colliderBelow => !(colliderBelow.bounds.size.x < objectCollider.bounds.size.x));
         

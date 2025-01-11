@@ -12,6 +12,7 @@ public class Dragger : MonoBehaviour
     private PlayerControls _playerControls;
     
     private DraggableObject _draggableObject;
+    public bool IsDragging {get; private set;}
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class Dragger : MonoBehaviour
         {
             _draggableObject.StopDragging();
             _draggableObject = null;
+            IsDragging = false;
         }
     }
 
@@ -49,6 +51,7 @@ public class Dragger : MonoBehaviour
         if(_draggableObject == null) return;
         
         _draggableObject.StartDragging();
+        IsDragging = true;
     }
 
     private void OnDisable()
