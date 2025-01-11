@@ -1004,7 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1292ac989cab5547bd8448dc5eb2e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderChecker: {fileID: 0}
+  colliderChecker: {fileID: 1166516930}
   objectCollider: {fileID: 0}
   <SpriteRenderer>k__BackingField: {fileID: 0}
   followSpeed: 15
