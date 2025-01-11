@@ -72,7 +72,8 @@ public class DraggableObject : MonoBehaviour
             _currentShelf = upperCollider2D.gameObject.GetComponent<Shelf>();
             _currentShelf.AddObjectToShelf(this);
             Vector3 finalPosition = new Vector3(transform.position.x, upperCollider2D.bounds.max.y, 0);
-            _currentTween = transform.DOMove(finalPosition, 1)
+            float fallTime = Mathf.Sqrt(2 * (transform.position.y - finalPosition.y) / 9.8f);
+            _currentTween = transform.DOMove(finalPosition, fallTime)
                 .SetEase(Ease.OutBounce);
         }
     }

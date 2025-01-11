@@ -267,9 +267,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1292ac989cab5547bd8448dc5eb2e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderChecker: {fileID: 0}
-  objectCollider: {fileID: 0}
-  <SpriteRenderer>k__BackingField: {fileID: 0}
+  colliderChecker: {fileID: 34254237}
+  objectCollider: {fileID: 34254235}
+  <SpriteRenderer>k__BackingField: {fileID: 34254233}
   followSpeed: 15
 --- !u!114 &34254237
 MonoBehaviour:
@@ -544,7 +544,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -10524483601426386, guid: 2a68066e448e69e489c8a1206678adf2, type: 3}
+  m_Sprite: {fileID: -1601326401201788047, guid: 2a68066e448e69e489c8a1206678adf2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -606,7 +606,7 @@ Transform:
   m_GameObject: {fileID: 704947280}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5628741, y: -2.15, z: 0}
+  m_LocalPosition: {x: -0.36, y: -1.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -920,6 +920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1901977502}
   - component: {fileID: 1901977503}
+  - component: {fileID: 1901977504}
   m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
@@ -988,6 +989,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 70, y: 3}
   m_EdgeRadius: 0
+--- !u!114 &1901977504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901977501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e56cecc90de1646a63f141ad56ac83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1986562810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,6 +1102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2143831562}
   - component: {fileID: 2143831563}
+  - component: {fileID: 2143831564}
   m_Layer: 6
   m_Name: Shelf1
   m_TagString: Untagged
@@ -1157,6 +1171,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4, y: 0.17987451}
   m_EdgeRadius: 0
+--- !u!114 &2143831564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143831561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e56cecc90de1646a63f141ad56ac83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
