@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundRenderer: {fileID: 1819819535}
-  dragSpeed: 2
+  dragSpeed: 5
   draggingMoveThreshold: 0.1
   dragger: {fileID: 1986562812}
 --- !u!1 &552788695

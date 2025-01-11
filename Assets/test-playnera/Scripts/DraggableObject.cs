@@ -54,6 +54,8 @@ public class DraggableObject : MonoBehaviour
     public void StartDragging()
     {
         _isDragged = true;
+        
+        transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
 
         SpriteRenderer.sortingOrder = 50;
         
@@ -66,6 +68,8 @@ public class DraggableObject : MonoBehaviour
     public void StopDragging()
     {
         _isDragged = false;
+        
+        transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
 
         Collider2D upperCollider2D = colliderChecker.GetCollidersBelow().OrderByDescending(obj => obj.bounds.max.y).FirstOrDefault(colliderBelow => !(colliderBelow.bounds.size.x < objectCollider.bounds.size.x));
         
@@ -73,7 +77,7 @@ public class DraggableObject : MonoBehaviour
         {
             _currentShelf = upperCollider2D.gameObject.GetComponent<Shelf>();
             _currentShelf.AddObjectToShelf(this);
-            Vector3 finalPosition = new Vector3(transform.position.x, upperCollider2D.bounds.max.y, 0);
+            var finalPosition = transform.position.y >= upperCollider2D.bounds.max.y ? new Vector3(transform.position.x, upperCollider2D.bounds.max.y, 0) : new Vector3(transform.position.x, transform.position.y, 0);
             float fallTime = Mathf.Sqrt(2 * (transform.position.y - finalPosition.y) / 9.8f);
             _currentTween = transform.DOMove(finalPosition, fallTime)
                 .SetEase(Ease.OutBounce);
